@@ -5,7 +5,13 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <nav>영혜의 포트폴리오</nav>
+        <nav>영혜의 포트폴리오
+        <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">TodoList</a></li>
+  </ul>
+        </nav>
+
       </main>
       <footer className={styles.footer}>
        
