@@ -13,9 +13,6 @@ export default function Home() {
           </ul>
         </nav>
       </main>
-      <footer className={styles.footer}>
-
-      </footer>
     </div>
   );
 }
