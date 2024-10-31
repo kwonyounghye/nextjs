@@ -10,9 +10,8 @@ export default function todoList() {
 
     // 추가
     const addTodo = () => {
-        if(todo.trim()=='') {
-            // setTodos([...todos, setTodo]);
-        }
+        if(todo.trim()!=='') return;
+            
     }
 
     // 제거
