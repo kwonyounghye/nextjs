@@ -10,6 +10,7 @@ export default function todoList() {
 
     // 추가
     const addTodo = () => {
+        // trim(): 앞뒤 공백 제거
         if(todo.trim()!=='') return;
             
     }
