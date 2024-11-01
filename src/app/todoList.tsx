@@ -23,4 +23,20 @@ export default function todoList() {
     const editTodo = () => {
 
     }
-}
+
+    return (
+        <div>
+            <div>
+                <h1>To-do List</h1>
+                <hr />
+                <input type='text' value={todo} placeholder='To-do input' />
+                <button>Add</button>
+            </div>
+            <div>
+                <span>{todos}</span>
+                <button>edit</button>
+                <button>delete</button>
+            </div>
+        </div>
+    )
+};
