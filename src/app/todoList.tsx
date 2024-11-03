@@ -1,3 +1,4 @@
+"use client";
 import { useState } from 'react'
 
 
@@ -33,7 +34,7 @@ export default function todoList() {
                 <button>Add</button>
             </div>
             <div>
-                <span>{todos}</span>
+                <span></span>
                 <button>edit</button>
                 <button>delete</button>
             </div>
