@@ -1,16 +1,22 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import todoList from "./todoList";
+import TodoList from "./todoList";
+import { useState } from 'react'
+import Link from 'next/link';
+
 
 export default function Home() {
+
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <nav>
           <h2>영혜의 포트폴리오</h2>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a onClick={todoList} href="#">TodoList</a></li>
+            <li><Link href="">Home</Link></li>
+            <li><Link href="/todoList">TodoList</Link></li> {/* 버튼으로 변경 */}
           </ul>
         </nav>
       </main>
