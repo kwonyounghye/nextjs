@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import TodoList from "./dashboard/todoList";
+import TodoList from "./todoList";
 import { useState } from 'react'
 import Link from 'next/link';
 
