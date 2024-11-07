@@ -4,7 +4,11 @@ import { useState } from 'react'
 
 export default function TodoList() {
 
-
+    interface Todo {
+        id: number;    // 각 할 일의 고유 식별자
+        text: string;  // 할 일 내용
+        completed: boolean;  // 완료 여부
+      }
 
     // [상태변경 전, 후]
     const [todo, setTodo] = useState<string>(''); // 입력값
