@@ -3,6 +3,9 @@ import { useState } from 'react'
 
 
 export default function TodoList() {
+
+
+
     // [상태변경 전, 후]
     const [todo, setTodo] = useState<string>(''); // 입력값
     // <문자열이 배열>(빈배열로 초기화)
@@ -14,7 +17,13 @@ export default function TodoList() {
         if (todo.trim() !== '') return;
         setTodos([...todos, todo])
         setTodo('') // 입력필드 초기화
+
     }
+
+    // 이행여부
+    // const toggleTodo = () => {
+
+    // }
 
     // 제거
     // const deleteTodo = () => {
@@ -28,11 +37,12 @@ export default function TodoList() {
     return (
         <div>
             <div>
-                <h1>To-do List</h1>
+                <h1>Enter your to-do</h1>
                 <hr />
-                <input type='text' placeholder='To-do input' value={todo}
+                <input type='checkbox' />
+                <input type='text' placeholder='To-Do' value={todo}
                     onChange={(e) => setTodo(e.target.value)} />
-                <button>Add</button>
+                <button onClick={addTodo}>Add</button>
             </div>
             <div>
                 <span></span>
