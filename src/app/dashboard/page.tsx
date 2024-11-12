@@ -54,8 +54,8 @@ export default function TodoList() {
                     placeholder='To-Do'
                     value={todo}
                     onChange={(e) => setTodo(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && addTodo()} />
-                <button onClick={addTodo}>Add</button>
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()} />
+                <button onClick={handleAddTodo}>Add</button>
                 {todos.map(todo => (
                     <>
                         <input type='checkbox' />
