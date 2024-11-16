@@ -19,17 +19,17 @@ export default function TodoList() {
     const handleAddTodo = () => {
         // trim(): 앞뒤 공백 제거
         if (todo.trim() === '') return;
-        // setTodos([...todos, newItem]);이 안되는 이유는 사용되는 '시점'과 '맥락'이 달라서 단순 실행만 된다.
-        // 아래의 방식으로 하면 react가 값을 추적해서 업데이트한다.
-        // etTodos(prevTodos => [...prevTodos, Todo]);가 안되는 것은 Todo는 배열이 아닌 객체이기 때문에 안됨.
-        setTodos(prevTodos => [...prevTodos, newItem]); // Todo 객체 추가
-        setNextId(nextId + 1); // 다음 ID 준비
         const newItem: Todo = {
             id: nextId,
             text: todo,
             // isDone: false,
             // isEdit: false,
         }
+        // setTodos([...todos, newItem]);이 안되는 이유는 사용되는 '시점'과 '맥락'이 달라서 단순 실행만 된다.
+        // 아래의 방식으로 하면 react가 값을 추적해서 업데이트한다.
+        // etTodos(prevTodos => [...prevTodos, Todo]);가 안되는 것은 Todo는 배열이 아닌 객체이기 때문에 안됨.
+        setTodos(prevTodos => [...prevTodos, newItem]); // Todo 객체 추가
+        setNextId(nextId + 1); // 다음 ID 준비
         setTodo('') // 입력필드 초기화
     }
 
