@@ -39,9 +39,10 @@ export default function TodoList() {
     // }
 
     // 제거
-    // const deleteTodo = () => {
+    const handleDeleteTodo = () => {
+        // setTodos()
+    }
 
-    // }
     // 편집
     // const editTodo = () => {
 
