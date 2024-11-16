@@ -4,8 +4,8 @@ import { useState } from 'react'
 interface Todo {
     id: number;    // 각 할 일의 고유 식별자
     text: string;  // 할 일 내용
-    isDone: boolean; // 완료 여부
-    isEdit: boolean;  // 편집 여부
+    // isDone: boolean; // 완료 여부
+    // isEdit: boolean;  // 편집 여부
 }
 
 export default function TodoList() {
@@ -27,8 +27,8 @@ export default function TodoList() {
         const newItem: Todo = {
             id: nextId,
             text: todo,
-            isDone: false,
-            isEdit: false,
+            // isDone: false,
+            // isEdit: false,
         }
         setTodo('') // 입력필드 초기화
     }
@@ -48,8 +48,7 @@ export default function TodoList() {
     // }
 
     return (
-        <div>
-            <div key={todo}>
+            <div>
                 <h1>Enter your to-do</h1>
                 <hr />
                 <input
@@ -60,14 +59,13 @@ export default function TodoList() {
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()} />
                 <button onClick={handleAddTodo}>Add</button>
                 {todos.map(todo => (
-                    <>
+                    <div key={todo.id}>
                         <input type='checkbox' />
-                        <span>{todo}</span>
+                        <span>{todo.text}</span>
                         <button>Edit</button>
                         <button>Delete</button>
-                    </>
+                    </ div>
                 ))}
             </div>
-        </div>
     )
 };
