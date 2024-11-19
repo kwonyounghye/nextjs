@@ -30,7 +30,7 @@ export default function TodoList() {
         // etTodos(prevTodos => [...prevTodos, Todo]);가 안되는 것은 Todo는 배열이 아닌 객체이기 때문에 안됨.
         setTodos(prevTodos => [...prevTodos, newItem]); // Todo 객체 추가
         setNextId(nextId + 1); // 다음 ID 준비
-        setTodo('') // 입력필드 초기화
+        setTodo(''); // 입력필드 초기화
     }
 
     // 이행여부
@@ -38,15 +38,15 @@ export default function TodoList() {
 
     // }
 
+    // 편집
+    const handleEditTodo = () => {
+        
+    }
     // 제거
     const handleDeleteTodo = () => {
         // setTodos()
     }
 
-    // 편집
-    // const editTodo = () => {
-
-    // }
 
     return (
             <div>
@@ -63,8 +63,8 @@ export default function TodoList() {
                     <div key={todo.id}>
                         <input type='checkbox' />
                         <span>{todo.text}</span>
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <button onClick={handleEditTodo}>Edit</button>
+                        <button onClick={handleDeleteTodo}>Delete</button>
                     </ div>
                 ))}
             </div>
