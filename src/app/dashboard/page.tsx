@@ -43,9 +43,9 @@ export default function TodoList() {
         
     }
     // 제거
-    const handleDeleteTodo = () => {
-        // setTodos()
-    }
+    const handleDeleteTodo = (nextId: number) => {
+    setTodos(todos.filter(todo => todo.id !== nextId));
+  };
 
 
     return (
@@ -64,7 +64,7 @@ export default function TodoList() {
                         <input type='checkbox' />
                         <span>{todo.text}</span>
                         <button onClick={handleEditTodo}>Edit</button>
-                        <button onClick={handleDeleteTodo}>Delete</button>
+                        <button onClick={()=>handleDeleteTodo(todo.id)}>Delete</button>
                     </ div>
                 ))}
             </div>
