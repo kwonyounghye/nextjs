@@ -14,6 +14,7 @@ export default function TodoList() {
     // <문자열이 배열>(빈배열로 초기화) / todos는 Todo배열 안에 있는 객체만 받을 수 있음
     const [todos, setTodos] = useState<Todo[]>([]); // 출력값
     const [nextId, setNextId] = useState(1); // 다음에 추가될 할 일의 ID를 관리
+    const [editText, setEditText] = useState('');
 
     // 추가
     const handleAddTodo = () => {
@@ -39,8 +40,14 @@ export default function TodoList() {
     // }
 
     // 편집
-    const handleEditTodo = () => {
-        
+    const handleEditTodo = (todo: Todo, currentText: string) => {
+        setTodos(todos.map(todo => 
+            todo.id === nextId 
+              ? { ...todo, isEdit: !todo.text } 
+              : { ...todo, isEdit: false }
+              );
+              setNextId(currentText);
+              )
     }
     // 제거
     const handleDeleteTodo = (nextId: number) => {
@@ -61,10 +68,21 @@ export default function TodoList() {
                 <button onClick={handleAddTodo}>Add</button>
                 {todos.map(todo => (
                     <div key={todo.id}>
-                        <input type='checkbox' />
-                        <span>{todo.text}</span>
-                        <button onClick={handleEditTodo}>Edit</button>
-                        <button onClick={()=>handleDeleteTodo(todo.id)}>Delete</button>
+                        {nextId === todo.id ? (
+                            <>
+                            <input type='checkbox' />
+                            <span>{todo.text}</span>
+                            <button onClick={()=>handleEditTodo}>Save</button>
+                            <button onClick={()=>handleDeleteTodo(todo.id)}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                            <input type='checkbox' />
+                            <span>{todo.text}</span>
+                            <button onClick={()=>handleEditTodo}>Edit</button>
+                            <button onClick={()=>handleDeleteTodo(todo.id)}>Delete</button>
+                            </>
+                        )}
                     </ div>
                 ))}
             </div>
