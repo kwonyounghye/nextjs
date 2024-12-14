@@ -5,7 +5,7 @@ interface Todo {
     id: number;    // 각 할 일의 고유 식별자
     text: string;  // 할 일 내용
     // isDone: boolean; // 완료 여부
-    // isEdit: boolean;  // 편집 여부
+    isEdit: boolean;  // 편집 여부
 }
 
 export default function TodoList() {
@@ -13,8 +13,8 @@ export default function TodoList() {
     const [todo, setTodo] = useState<string>(''); // 입력값
     // <문자열이 배열>(빈배열로 초기화) / todos는 Todo배열 안에 있는 객체만 받을 수 있음
     const [todos, setTodos] = useState<Todo[]>([]); // 출력값
-    const [nextId, setNextId] = useState(1); // 다음에 추가될 할 일의 ID를 관리
-    const [editText, setEditText] = useState('');
+    const [nextId, setNextId] = useState<number>(1); // 다음에 추가될 할 일의 ID를 관리
+    const [editText, setEditText] = useState<string>('');
 
     // 추가
     const handleAddTodo = () => {
@@ -24,11 +24,11 @@ export default function TodoList() {
             id: nextId,
             text: todo,
             // isDone: false,
-            // isEdit: false,
+            isEdit: false,
         }
         // setTodos([...todos, newItem]);이 안되는 이유는 사용되는 '시점'과 '맥락'이 달라서 단순 실행만 된다.
         // 아래의 방식으로 하면 react가 값을 추적해서 업데이트한다.
-        // etTodos(prevTodos => [...prevTodos, Todo]);가 안되는 것은 Todo는 배열이 아닌 객체이기 때문에 안됨.
+        // setTodos(prevTodos => [...prevTodos, Todo]);가 안되는 것은 Todo는 배열이 아닌 객체이기 때문에 안됨.
         setTodos(prevTodos => [...prevTodos, newItem]); // Todo 객체 추가
         setNextId(nextId + 1); // 다음 ID 준비
         setTodo(''); // 입력필드 초기화
@@ -40,51 +40,66 @@ export default function TodoList() {
     // }
 
     // 편집
-    const handleEditTodo = (todo: Todo, currentText: string) => {
-        setTodos(todos.map(todo => 
-            todo.id === nextId 
-              ? { ...todo, isEdit: !todo.text } 
-              : { ...todo, isEdit: false }
-              );
-              setNextId(currentText);
-              )
-    }
+    const handleEditTodo = (id: number, currentText: string) => {
+        setTodos(todos.map(todo =>
+            nextId === todo.id
+                // 수정 모드
+                ? { ...todo, isEdit: true }
+                // 텍스트 모드
+                : { ...todo, isEdit: false }
+        ));
+
+    };
+    // 편집 업데이트
+    const handleUpdateTodo = (id: number, currentText: string) => {
+        setTodos(
+            todos.map(todo =>
+                todo.id === id ? { ...todo, text: currentText, isEdit: false } : todo
+            )
+        );
+        setEditText('');
+    };
+
     // 제거
     const handleDeleteTodo = (nextId: number) => {
-    setTodos(todos.filter(todo => todo.id !== nextId));
-  };
+        setTodos(todos.filter(todo => todo.id !== nextId));
+    };
 
 
     return (
-            <div>
-                <h1>Enter your to-do</h1>
-                <hr />
-                <input
-                    type='text'
-                    placeholder='To-Do'
-                    value={todo}
-                    onChange={(e) => setTodo(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()} />
-                <button onClick={handleAddTodo}>Add</button>
-                {todos.map(todo => (
-                    <div key={todo.id}>
-                        {nextId === todo.id ? (
-                            <>
+        <div>
+            <h1>Enter your to-do</h1>
+            <hr />
+            <input
+                type='text'
+                placeholder='To-Do'
+                value={todo}
+                onChange={(e) => setTodo(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()} />
+            <button onClick={handleAddTodo}>Add</button>
+            {todos.map(todo => (
+                <div key={todo.id}>
+                    {todo.isEdit ? (
+                        <>
+                            <input type='checkbox' onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleUpdateTodo(todo.id, e.currentTarget.value);
+                                }
+                            }} />
+                            <span>{todo.text}</span>
+                            <button onClick={() => handleUpdateTodo}>Update</button>
+                            <button onClick={() => handleDeleteTodo(todo.id)}>Cancel</button>
+                        </>
+                    ) : (
+                        <>
                             <input type='checkbox' />
                             <span>{todo.text}</span>
-                            <button onClick={()=>handleEditTodo}>Save</button>
-                            <button onClick={()=>handleDeleteTodo(todo.id)}>Cancel</button>
-                            </>
-                        ) : (
-                            <>
-                            <input type='checkbox' />
-                            <span>{todo.text}</span>
-                            <button onClick={()=>handleEditTodo}>Edit</button>
-                            <button onClick={()=>handleDeleteTodo(todo.id)}>Delete</button>
-                            </>
-                        )}
-                    </ div>
-                ))}
-            </div>
+                            <button onClick={() => handleEditTodo}>Edit</button>
+                            <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
+                        </>
+                    )}
+                </ div>
+            ))}
+        </div>
     )
 };
