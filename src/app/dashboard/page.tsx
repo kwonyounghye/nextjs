@@ -40,9 +40,9 @@ export default function TodoList() {
     // }
 
     // 편집
-    const handleEditTodo = (id: number, currentText: string) => {
+    const handleEditTodo = (id: number) => {
         setTodos(todos.map(todo =>
-            nextId === todo.id
+            id === todo.id
                 // 수정 모드
                 ? { ...todo, isEdit: true }
                 // 텍스트 모드
@@ -81,20 +81,23 @@ export default function TodoList() {
                 <div key={todo.id}>
                     {todo.isEdit ? (
                         <>
-                            <input type='checkbox' onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
-                                    handleUpdateTodo(todo.id, e.currentTarget.value);
-                                }
+                            <input type='checkbox' 
+                                value={editText || todo.text}  // 현재 텍스트로 초기화
+                                onChange={(e) => setEditText(e.target.value)}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {
+                                        handleUpdateTodo(todo.id, e.currentTarget.value);
+                                    }
                             }} />
                             <span>{todo.text}</span>
-                            <button onClick={() => handleUpdateTodo}>Update</button>
-                            <button onClick={() => handleDeleteTodo(todo.id)}>Cancel</button>
+                            <button onClick={() => handleUpdateTodo(todo.id, editText)}>Update</button>
+                            <button onClick={() => setEditText('')}>Cancel</button>
                         </>
                     ) : (
                         <>
                             <input type='checkbox' />
                             <span>{todo.text}</span>
-                            <button onClick={() => handleEditTodo}>Edit</button>
+                            <button onClick={() => handleEditTodo(todo.id)}>Edit</button>
                             <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
                         </>
                     )}
