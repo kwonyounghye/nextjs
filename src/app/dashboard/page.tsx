@@ -32,6 +32,7 @@ export default function TodoList() {
         setTodos(prevTodos => [...prevTodos, newItem]); // Todo 객체 추가
         setNextId(nextId + 1); // 다음 ID 준비
         setTodo(''); // 입력필드 초기화
+
     }
 
     // 이행여부
@@ -47,17 +48,26 @@ export default function TodoList() {
                 ? { ...todo, isEdit: true }
                 // 텍스트 모드
                 : { ...todo, isEdit: false }
-        ));
+                ));
+                setTodo(todo);
+                setEditText('');
 
     };
-    // 편집 업데이트
-    const handleUpdateTodo = (id: number, currentText: string) => {
+    // 업데이트
+    const handleUpdateTodo = (id: number, editText: string) => {
+        setTodos(
+            todos.map(todo =>
+                todo.id === id ? { ...todo, text: editText, isEdit: false } : todo,
+                todos.find(todo => todo.id === id)
+            )
+        );
+    };
+    const handleCancelTodo = (id: number, currentText: string) => {
         setTodos(
             todos.map(todo =>
                 todo.id === id ? { ...todo, text: currentText, isEdit: false } : todo
             )
         );
-        setEditText('');
     };
 
     // 제거
@@ -67,7 +77,8 @@ export default function TodoList() {
 
 
     return (
-        <div>
+        // <div>
+        <>
             <h1>Enter your to-do</h1>
             <hr />
             <input
@@ -77,21 +88,23 @@ export default function TodoList() {
                 onChange={(e) => setTodo(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()} />
             <button onClick={handleAddTodo}>Add</button>
+            {/********************************************************************************/}
             {todos.map(todo => (
                 <div key={todo.id}>
                     {todo.isEdit ? (
                         <>
-                            <input type='checkbox' 
-                                value={editText || todo.text}  // 현재 텍스트로 초기화
+                            <input type='checkbox' />
+                            <input 
+                                type='text'
+                                value={editText} 
                                 onChange={(e) => setEditText(e.target.value)}
                                 onKeyPress={(e) => {
                                     if (e.key === 'Enter') {
-                                        handleUpdateTodo(todo.id, e.currentTarget.value);
+                                        handleUpdateTodo(todo.id, editText);
                                     }
                             }} />
-                            <span>{todo.text}</span>
                             <button onClick={() => handleUpdateTodo(todo.id, editText)}>Update</button>
-                            <button onClick={() => setEditText('')}>Cancel</button>
+                            <button onClick={() => handleCancelTodo(todo.id, todo.text)}>Cancel</button>
                         </>
                     ) : (
                         <>
@@ -103,6 +116,7 @@ export default function TodoList() {
                     )}
                 </ div>
             ))}
-        </div>
+        {/* </div> */}
+        </>
     )
 };
