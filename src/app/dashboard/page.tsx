@@ -48,17 +48,21 @@ export default function TodoList() {
                 ? { ...todo, isEdit: true }
                 // 텍스트 모드
                 : { ...todo, isEdit: false }
-                ));
-                setTodo(todo);
-                setEditText('');
-
+        ));
+        // todo를 빈 문자열로 초기화
+        setTodo('');
+        setEditText(todo);
+        
+        const editingTodo = todos.find(todo => todo.id === id);
+        if (editingTodo) {
+            setEditText(editingTodo.text);
+        }
     };
     // 업데이트
     const handleUpdateTodo = (id: number, editText: string) => {
         setTodos(
             todos.map(todo =>
-                todo.id === id ? { ...todo, text: editText, isEdit: false } : todo,
-                todos.find(todo => todo.id === id)
+                todo.id === id ? { ...todo, text: editText, isEdit: false } : todo
             )
         );
     };
@@ -94,15 +98,15 @@ export default function TodoList() {
                     {todo.isEdit ? (
                         <>
                             <input type='checkbox' />
-                            <input 
+                            <input
                                 type='text'
-                                value={editText} 
+                                value={editText}
                                 onChange={(e) => setEditText(e.target.value)}
                                 onKeyPress={(e) => {
                                     if (e.key === 'Enter') {
                                         handleUpdateTodo(todo.id, editText);
                                     }
-                            }} />
+                                }} />
                             <button onClick={() => handleUpdateTodo(todo.id, editText)}>Update</button>
                             <button onClick={() => handleCancelTodo(todo.id, todo.text)}>Cancel</button>
                         </>
@@ -116,7 +120,7 @@ export default function TodoList() {
                     )}
                 </ div>
             ))}
-        {/* </div> */}
+            {/* </div> */}
         </>
     )
 };
