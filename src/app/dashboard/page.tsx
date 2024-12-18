@@ -4,7 +4,7 @@ import { useState } from 'react'
 interface Todo {
     id: number;    // 각 할 일의 고유 식별자
     text: string;  // 할 일 내용
-    // isDone: boolean; // 완료 여부
+    isDone: boolean; // 완료 여부
     isEdit: boolean;  // 편집 여부
 }
 
@@ -23,7 +23,7 @@ export default function TodoList() {
         const newItem: Todo = {
             id: nextId,
             text: todo,
-            // isDone: false,
+            isDone: false,
             isEdit: false,
         }
         // setTodos([...todos, newItem]);이 안되는 이유는 사용되는 '시점'과 '맥락'이 달라서 단순 실행만 된다.
@@ -36,9 +36,13 @@ export default function TodoList() {
     }
 
     // 이행여부
-    // const toggleTodo = () => {
-
-    // }
+    const handleToggleTodo = (id: number) => {
+        setTodos(todos.map(todo =>
+            todo.id === id
+                ? { ...todo, isDone: !todo.isDone }  // isDone 상태 반전
+                : todo
+        ));
+    };
 
     // 편집
     const handleEditTodo = (id: number) => {
@@ -112,8 +116,18 @@ export default function TodoList() {
                         </>
                     ) : (
                         <>
-                            <input type='checkbox' />
-                            <span>{todo.text}</span>
+                            <input
+                                type='checkbox'
+                                checked={todo.isDone}
+                                onChange={() => handleToggleTodo(todo.id)}  // 클릭 시 토글
+                            />
+                            <span
+                                style={{
+                                    textDecoration: todo.isDone ? 'line-through' : 'none',
+                                    color: todo.isDone ? 'gray' : 'black'
+                                }}>
+                                    {todo.text}
+                            </span>
                             <button onClick={() => handleEditTodo(todo.id)}>Edit</button>
                             <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
                         </>
