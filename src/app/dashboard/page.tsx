@@ -52,7 +52,7 @@ export default function TodoList() {
         // todo를 빈 문자열로 초기화
         setTodo('');
         setEditText(todo);
-        
+        // 항목의 todo를 찾아서 EditText에 담기
         const editingTodo = todos.find(todo => todo.id === id);
         if (editingTodo) {
             setEditText(editingTodo.text);
