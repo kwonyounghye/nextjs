@@ -29,8 +29,8 @@ export default function TodoList() {
         // setTodos([...todos, newItem]);이 안되는 이유는 사용되는 '시점'과 '맥락'이 달라서 단순 실행만 된다.
         // 아래의 방식으로 하면 react가 값을 추적해서 업데이트한다.
         // setTodos(prevTodos => [...prevTodos, Todo]);가 안되는 것은 Todo는 배열이 아닌 객체이기 때문에 안됨.
-        setTodos(prevTodos => [...prevTodos, newItem]); // Todo 객체 추가
-        setNextId(nextId + 1); // 다음 ID 준비
+        setTodos(prevTodos => [...prevTodos, newItem]);
+        setNextId(prevId => prevId + 1);
         setTodo(''); // 입력필드 초기화
 
     }
@@ -46,21 +46,21 @@ export default function TodoList() {
 
     // 편집
     const handleEditTodo = (id: number) => {
-        setTodos(todos.map(todo =>
-            id === todo.id
-                // 수정 모드
-                ? { ...todo, isEdit: true }
-                // 텍스트 모드
-                : { ...todo, isEdit: false }
-        ));
-        // todo를 빈 문자열로 초기화
-        setTodo('');
-        setEditText(todo);
+        // setEditText(todo);
         // 항목의 todo를 찾아서 EditText에 담기
         const editingTodo = todos.find(todo => todo.id === id);
         if (editingTodo) {
             setEditText(editingTodo.text);
-        }
+            setTodos(todos.map(todo =>
+                id === todo.id
+                // 수정 모드
+                ? { ...todo, isEdit: true }
+                // 텍스트 모드
+                : { ...todo, isEdit: false }
+                ));
+            }
+        // todo를 빈 문자열로 초기화
+        // setTodo('');
     };
     // 업데이트
     const handleUpdateTodo = (id: number, editText: string) => {
@@ -73,9 +73,10 @@ export default function TodoList() {
     const handleCancelTodo = (id: number, currentText: string) => {
         setTodos(
             todos.map(todo =>
-                todo.id === id ? { ...todo, text: currentText, isEdit: false } : todo
+                todo.id === id ? { ...todo, isEdit: false } : todo
             )
         );
+        setEditText('');
     };
 
     // 제거
@@ -101,7 +102,11 @@ export default function TodoList() {
                 <div key={todo.id}>
                     {todo.isEdit ? (
                         <>
-                            <input type='checkbox' />
+                            <input 
+                            type='checkbox'
+                            // 편집여부랑 체크박스 상태 상관없음
+                            checked={todo.isDone}
+                            onChange={() => handleToggleTodo(todo.id)} />
                             <input
                                 type='text'
                                 value={editText}
