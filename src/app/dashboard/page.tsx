@@ -35,10 +35,11 @@ export default function TodoList() {
 
     }
 
-    // 이행여부
+    // 체크
     const handleToggleTodo = (id: number) => {
         setTodos(todos.map(todo =>
             todo.id === id
+            // ...: 스프레드 연산자 - 기존의 모든 속성 복사
                 ? { ...todo, isDone: !todo.isDone }  // isDone 상태 반전
                 : todo
         ));
