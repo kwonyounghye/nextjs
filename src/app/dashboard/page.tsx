@@ -47,7 +47,6 @@ export default function TodoList() {
 
     // 편집
     const handleEditTodo = (id: number) => {
-        // setEditText(todo);
         // 항목의 todo를 찾아서 EditText에 담기
         const editingTodo = todos.find(todo => todo.id === id);
         if (editingTodo) {
@@ -60,8 +59,6 @@ export default function TodoList() {
                 : { ...todo, isEdit: false }
                 ));
             }
-        // todo를 빈 문자열로 초기화
-        // setTodo('');
     };
     // 업데이트
     const handleUpdateTodo = (id: number, editText: string) => {
