@@ -60,6 +60,7 @@ export default function TodoList() {
                 ));
             }
     };
+
     // 업데이트
     const handleUpdateTodo = (id: number, editText: string) => {
         setTodos(
@@ -69,13 +70,15 @@ export default function TodoList() {
             )
         );
     };
-    const handleCancelTodo = (id: number, currentText: string) => {
+
+    // 취소
+    const handleCancelTodo = (id: number) => {
         setTodos(
-            todos.map(todo =>
+            // map - isEdit 변경
+            todos.map(todo => 
                 todo.id === id ? { ...todo, isEdit: false } : todo
             )
         );
-        setEditText('');
     };
 
     // 제거
