@@ -82,10 +82,10 @@ export default function TodoList() {
     };
 
     // 제거
-    const handleDeleteTodo = (nextId: number) => {
-        setTodos(todos.filter(todo => todo.id !== nextId));
+    const handleDeleteTodo = (id: number) => {
+        setTodos(todos.filter(todo => todo.id !== id));
     };
-
+    
 
     return (
         // <div>
