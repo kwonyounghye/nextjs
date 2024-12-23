@@ -83,6 +83,7 @@ export default function TodoList() {
 
     // 제거
     const handleDeleteTodo = (id: number) => {
+        // filter(제거) - 조건을 만족하는 요소를 제외한 나머지 요소들을 새로운 배열로 반환
         setTodos(todos.filter(todo => todo.id !== id));
     };
     
