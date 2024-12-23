@@ -63,6 +63,7 @@ export default function TodoList() {
     // 업데이트
     const handleUpdateTodo = (id: number, editText: string) => {
         setTodos(
+            // map - 각 항목을 순회하면서 일부 항목을 변경하기 위해 업데이트에 자주 사용
             todos.map(todo =>
                 todo.id === id ? { ...todo, text: editText, isEdit: false } : todo
             )
