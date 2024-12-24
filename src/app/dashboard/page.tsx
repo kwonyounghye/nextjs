@@ -50,7 +50,8 @@ export default function TodoList() {
         // 항목의 todo를 찾아서 EditText에 담기
         const editingTodo = todos.find(todo => todo.id === id);
         if (editingTodo) {
-            setEditText(editingTodo.text);
+            // 매번 원래 todo의 text로 덮어씌워서 handleCancelTodo에서 setEditText(''); 과정이 필요없음
+            setEditText(editingTodo.text); 
             setTodos(todos.map(todo =>
                 id === todo.id
                 // 수정 모드
@@ -120,7 +121,7 @@ export default function TodoList() {
                                     }
                                 }} />
                             <button onClick={() => handleUpdateTodo(todo.id, editText)}>Update</button>
-                            <button onClick={() => handleCancelTodo(todo.id, todo.text)}>Cancel</button>
+                            <button onClick={() => handleCancelTodo(todo.id)}>Cancel</button>
                         </>
                     ) : (
                         <>
