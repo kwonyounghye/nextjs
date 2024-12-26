@@ -39,7 +39,7 @@ export default function TodoList() {
     const handleToggleTodo = (id: number) => {
         setTodos(todos.map(todo =>
             todo.id === id
-            // ...: 스프레드 연산자 - 기존의 모든 속성 복사
+                // ...: 스프레드 연산자 - 기존의 모든 속성 복사
                 ? { ...todo, isDone: !todo.isDone }  // isDone 상태 반전
                 : todo
         ));
@@ -51,15 +51,15 @@ export default function TodoList() {
         const editingTodo = todos.find(todo => todo.id === id);
         if (editingTodo) {
             // 매번 원래 todo의 text로 덮어씌워서 handleCancelTodo에서 setEditText(''); 과정이 필요없음
-            setEditText(editingTodo.text); 
+            setEditText(editingTodo.text);
             setTodos(todos.map(todo =>
                 id === todo.id
-                // 수정 모드
-                ? { ...todo, isEdit: true }
-                // 텍스트 모드
-                : { ...todo, isEdit: false }
-                ));
-            }
+                    // 수정 모드
+                    ? { ...todo, isEdit: true }
+                    // 텍스트 모드
+                    : { ...todo, isEdit: false }
+            ));
+        }
     };
 
     // 업데이트
@@ -76,7 +76,7 @@ export default function TodoList() {
     const handleCancelTodo = (id: number) => {
         setTodos(
             // map - isEdit 변경
-            todos.map(todo => 
+            todos.map(todo =>
                 todo.id === id ? { ...todo, isEdit: false } : todo
             )
         );
@@ -87,7 +87,7 @@ export default function TodoList() {
         // filter(제거) - 조건을 만족하는 요소를 제외한 나머지 요소들을 새로운 배열로 반환
         setTodos(todos.filter(todo => todo.id !== id));
     };
-    
+
 
     return (
         // <div>
@@ -97,20 +97,24 @@ export default function TodoList() {
             <input
                 type='text'
                 placeholder='To-Do'
+                // 화면에 띄우기: 변수 사용
                 value={todo}
+                // 행동: 함수 호출
                 onChange={(e) => setTodo(e.target.value)}
+                // 괄호 있음: "조건이 맞으면 바로 이 함수 실행하세요"라고 직접 지시하기
                 onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()} />
+            {/* 괄호 없음: "이따가 클릭하면 이 함수 실행해주세요"라고 메모 남기기 */}
             <button onClick={handleAddTodo}>Add</button>
             {/********************************************************************************/}
             {todos.map(todo => (
                 <div key={todo.id}>
+                    <input
+                        type='checkbox'
+                        // 편집여부랑 체크박스 상태 상관없음
+                        checked={todo.isDone}
+                        onChange={() => handleToggleTodo(todo.id)} />
                     {todo.isEdit ? (
                         <>
-                            <input 
-                            type='checkbox'
-                            // 편집여부랑 체크박스 상태 상관없음
-                            checked={todo.isDone}
-                            onChange={() => handleToggleTodo(todo.id)} />
                             <input
                                 type='text'
                                 value={editText}
@@ -125,17 +129,12 @@ export default function TodoList() {
                         </>
                     ) : (
                         <>
-                            <input
-                                type='checkbox'
-                                checked={todo.isDone}
-                                onChange={() => handleToggleTodo(todo.id)}  // 클릭 시 토글
-                            />
                             <span
                                 style={{
                                     textDecoration: todo.isDone ? 'line-through' : 'none',
                                     color: todo.isDone ? 'gray' : 'black'
                                 }}>
-                                    {todo.text}
+                                {todo.text}
                             </span>
                             <button onClick={() => handleEditTodo(todo.id)}>Edit</button>
                             <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
