@@ -7,11 +7,6 @@
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
 
 body {
   margin: 0 auto;
@@ -22,11 +17,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
 
 a {
   color: inherit;
@@ -40,8 +30,46 @@ a {
 }
 
 */
+html,
+body {
+  box-sizing: border-box;
+  max-width: 100vw;
+  overflow-x: hidden;
+  padding: 0;
+  background: lightblue;
+}
+h1 {
+  margin: 1vh;
+  color:palevioletred;
+}
+hr {
+  color:palevioletred;
+}
+.add_todo {
+  text-align: center;
+}
+input[type=text] {
+  width: 270px;
+  height: 30px;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+}
+input[type=text], span {
+  margin-right: 10px;
+  margin-top: 10px;
+}
 button {
   width: 50px;
-  height: 50px;
-  background: skyblue;
+  height: 25px;
+  background: lightskyblue;
+  border-radius: 10px;
+  border: none;
+  margin: 3px;
+  margin-top: 10px;
+
+
 } 
+.list {
+  margin: 0 5%;
+}

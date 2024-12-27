@@ -94,6 +94,7 @@ export default function TodoList() {
         <>
             <h1>Enter your to-do</h1>
             <hr />
+            <div className='add_todo'>
             <input
                 type='text'
                 placeholder='To-Do'
@@ -105,9 +106,10 @@ export default function TodoList() {
                 onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()} />
             {/* 괄호 없음: "이따가 클릭하면 이 함수 실행해주세요"라고 메모 남기기 */}
             <button onClick={handleAddTodo}>Add</button>
+            </div>
             {/********************************************************************************/}
             {todos.map(todo => (
-                <div key={todo.id}>
+                <div className='list' key={todo.id}>
                     <input
                         type='checkbox'
                         // 편집여부랑 체크박스 상태 상관없음
