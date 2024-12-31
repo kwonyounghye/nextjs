@@ -18,10 +18,6 @@ body {
 }
 
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
 @media (prefers-color-scheme: dark) {
   html {
@@ -30,6 +26,12 @@ a {
 }
 
 */
+@font-face {
+  font-family: 'Uiyeun';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 html,
 body {
   box-sizing: border-box;
@@ -37,6 +39,24 @@ body {
   overflow-x: hidden;
   padding: 0;
   background: lightblue;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+li {
+  list-style: none;
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+a {
+  color: inherit;
+  text-decoration: none;
 }
 h1 {
   margin: 1vh;
@@ -54,6 +74,8 @@ input[type=text] {
   border: 0;
   border-radius: 5px;
   outline: none;
+  font-family: 'Uiyeun';
+  font-size: 25px;
 }
 input[type=text], span {
   margin-right: 10px;
@@ -67,9 +89,14 @@ button {
   border: none;
   margin: 3px;
   margin-top: 10px;
+  font-family: 'Uiyeun';
+  font-size: 20px;
+
 
 
 } 
 .list {
   margin: 0 5%;
+  font-family: 'Uiyeun';
+  font-size: 30px;
 }
